@@ -1,29 +1,52 @@
-# Inherit AOSP device configuration for maguro.
-$(call inherit-product, device/samsung/maguro/full_maguro.mk)
+#
+# Copyright (C) 2012 The CyanogenMod Project
+# Copyright (C) 2013 The Xylon Experimental
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
 
-# Inherit common product files.
-$(call inherit-product, vendor/aosp/config/common.mk)
+# name
+PRODUCT_RELEASE_NAME := Galaxy Nexus
 
-# Inherit common sound files from Sony.
-#$(call inherit-product, vendor/aosp/config/sound_effects.mk)
+# device
+$(call inherit-product-if-exists, device/samsung/maguro/full_maguro.mk)
 
-# Inherit GSM common stuff
-$(call inherit-product, vendor/aosp/config/gsm.mk)
+# gsm
+$(call inherit-product, vendor/ukg/config/common_gsm.mk)
 
-# Inherit Tuna common stuff
-$(call inherit-product, vendor/aosp/config/tuna.mk)
+# languages
+PRODUCT_LOCALES := en_US de_DE zh_CN zh_TW cs_CZ nl_BE nl_NL en_AU en_GB en_CA en_NZ en_SG fr_BE fr_CA fr_FR fr_CH de_AT de_LI de_CH it_IT it_CH ja_JP ko_KR pl_PL ru_RU es_ES ar_EG ar_IL bg_BG ca_ES hr_HR da_DK en_IN en_IE en_ZA fi_FI el_GR iw_IL hi_IN hu_HU in_ID lv_LV lt_LT nb_NO pt_BR pt_PT ro_RO sr_RS sk_SK sl_SI es_US sv_SE tl_PH th_TH tr_TR uk_UA vi_VN
 
-# Maguro Overlay
-PRODUCT_PACKAGE_OVERLAYS += vendor/aosp/overlay/tuna
+# phone
+$(call inherit-product, vendor/ukg/config/common_phone.mk)
 
-# Setup device specific product configuration.
-PRODUCT_NAME := xylon_maguro
-PRODUCT_BRAND := google
+# products
 PRODUCT_DEVICE := maguro
+PRODUCT_BRAND := Google
+PRODUCT_NAME := ukg_maguro
 PRODUCT_MODEL := Galaxy Nexus
-PRODUCT_MANUFACTURER := samsung
+PRODUCT_MANUFACTURER := Samsung
+PRODUCT_PROPERTY_OVERRIDES += ro.buildzipid=ukg.maguro.$(shell date +%m%d%y).$(shell date +%H%M%S)
 
-PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=takju BUILD_ID=JDQ39 BUILD_FINGERPRINT="google/takju/maguro:4.2.2/JDQ39/573038:user/release-keys" PRIVATE_BUILD_DESC="takju-user 4.2.2 JDQ39 573038 release-keys" BUILD_NUMBER=573038
+# overrides
+PRODUCT_BUILD_PROP_OVERRIDES += \
+    BUILD_NUMBER=573038 \
+    PRODUCT_NAME=takju \
+    TARGET_BUILD_TYPE=user \
+    BUILD_VERSION_TAGS=release-keys \
+    PRIVATE_BUILD_DESC="takju-user 4.2.2 JDQ39 573038 release-keys" \
+    BUILD_FINGERPRINT="google/takju/maguro:4.2.2/JDQ39/573038:user/release-keys"
 
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.com.google.mcc_fallback=262
+# hybrid
+PRODUCT_COPY_FILES +=  \
+    vendor/ukg/prebuilt/hybrid_xhdpi.conf:system/etc/beerbong/properties.conf \
