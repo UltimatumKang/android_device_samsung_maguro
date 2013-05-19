@@ -2,22 +2,22 @@
 $(call inherit-product, device/samsung/maguro/full_maguro.mk)
 
 # Inherit common product files.
-$(call inherit-product, vendor/aosp/config/common.mk)
+$(call inherit-product, vendor/ukg/config/common.mk)
 
 # Inherit common sound files from Sony.
-#$(call inherit-product, vendor/aosp/config/sound_effects.mk)
+#$(call inherit-product, vendor/ukg/config/sound_effects.mk)
 
 # Inherit GSM common stuff
-$(call inherit-product, vendor/aosp/config/gsm.mk)
+$(call inherit-product, vendor/ukg/config/gsm.mk)
 
 # Inherit Tuna common stuff
-$(call inherit-product, vendor/aosp/config/tuna.mk)
+$(call inherit-product, vendor/ukg/config/tuna.mk)
 
 # Maguro Overlay
-PRODUCT_PACKAGE_OVERLAYS += vendor/aosp/overlay/tuna
+PRODUCT_PACKAGE_OVERLAYS += vendor/ukg/overlay/tuna
 
 # Setup device specific product configuration.
-PRODUCT_NAME := xylon_maguro
+PRODUCT_NAME := ukg_maguro
 PRODUCT_BRAND := google
 PRODUCT_DEVICE := maguro
 PRODUCT_MODEL := Galaxy Nexus
